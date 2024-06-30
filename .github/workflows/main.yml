@@ -1,0 +1,34 @@
+---
+  name: Build | Test | Deploy
+  
+  on:
+    push:
+      branches: main
+    pull_request:
+      branches: main
+  
+  jobs:
+    build_and_unit_test:
+      #  Build and execute Unit test in GitHub actions workflow.
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout the repo
+          uses: actions/checkout@v4
+  
+        - name: Use Node.js 20.x
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20.x
+            cache: "npm"
+  
+        - name: Install dependencies
+          run: npm install
+  
+        - name: Execute Unit tests
+          uses: tonytech83/execute-test@v1.1
+          with:
+            test-name: test:unit
+  
+        - name: Display SoftUni username
+          run: echo "tonytech"
